@@ -17,6 +17,10 @@ public struct LinkedList<Value> {
             tail = head
         }
     }
+    
+    public mutating func append(_ value: Value) {}
+    public mutating func pop() -> Value? { nil }
+    public mutating func removeLast() -> Value? { nil }
 }
 
 extension LinkedList: CustomStringConvertible {
