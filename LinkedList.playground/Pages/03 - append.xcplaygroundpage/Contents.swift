@@ -2,16 +2,15 @@
 
 import Foundation
 
-example(of: "push") {
+example(of: "append") {
   var list = LinkedList<Int>()
-  list.push(3)
-  list.push(2)
-  list.push(1)
+  list.append(1)
+  list.append(2)
+  list.append(3)
   
   print(list)
-//    ---Example of push---
+//    ---Example of append---
 //    1 -> 2 -> 3  
 }
-
 
 //: [Next](@next)

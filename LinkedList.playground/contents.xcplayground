@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<playground version='6.0' target-platform='ios'>
+<playground version='6.0' target-platform='ios' buildActiveScheme='true'>
     <pages>
         <page name='01 - creating and linking nodes'/>
-        <page name='02 - LinkedList'/>
         <page name='02 - push'/>
+        <page name='03 - append'/>
+        <page name='04 - pop'/>
+        <page name='05.0 - initialize LinkedList with array literal'/>
+        <page name='05 - insert'/>
+        <page name='tests'/>
     </pages>
 </playground>
