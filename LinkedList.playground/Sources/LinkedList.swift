@@ -1,24 +1,24 @@
 import Foundation
 
 public class Node<Value> {
-
-  public var value: Value
-  public var next: Node?
-  
-  public init(value: Value, next: Node? = nil) {
-    self.value = value
-    self.next = next
-  }
+    
+    public var value: Value
+    public var next: Node?
+    
+    public init(value: Value, next: Node? = nil) {
+        self.value = value
+        self.next = next
+    }
 }
 
 extension Node: CustomStringConvertible {
-
-  public var description: String {
-    guard let next = next else {
-      return "\(value)"
+    
+    public var description: String {
+        guard let next = next else {
+            return "\(value)"
+        }
+        return "\(value) -> " + String(describing: next) + " "
     }
-    return "\(value) -> " + String(describing: next) + " "
-  }
 }
 
 public struct LinkedList<Value> {
@@ -58,41 +58,42 @@ public struct LinkedList<Value> {
     }
     
     public func node(at index: Int) -> Node<Value>? {
-      // 1
-      var currentNode = head
-      var currentIndex = 0
-      
-      // 2
-      while currentNode != nil && currentIndex < index {
-        currentNode = currentNode!.next
-        currentIndex += 1
-      }
-      
-      return currentNode
+        // 1
+        var currentNode = head
+        var currentIndex = 0
+        
+        // 2
+        while currentNode != nil && currentIndex < index {
+            currentNode = currentNode!.next
+            currentIndex += 1
+        }
+        
+        return currentNode
     }
     
     // 1
     @discardableResult
     public mutating func insert(_ value: Value,
                                 after node: Node<Value>)
-                                -> Node<Value> {
-      // 2
-      guard tail !== node else {
-        append(value)
-        return tail!
-      }
-      // 3
-      node.next = Node(value: value, next: node.next)
-      return node.next!
+    -> Node<Value> {
+        // 2
+        guard tail !== node else {
+            append(value)
+            return tail!
+        }
+        // 3
+        node.next = Node(value: value, next: node.next)
+        return node.next!
     }
     
+    /// Remove first element of the list
     @discardableResult
     public mutating func pop() -> Value? {
         print("\n--------pop() called--------")
         //why defer?
         defer {
             head = head?.next
-                
+            
             if isEmpty {
                 tail = nil
             }
@@ -103,7 +104,64 @@ public struct LinkedList<Value> {
         return head?.value
     }
     
-    public mutating func removeLast() -> Value? { nil }
+    @discardableResult
+    public mutating func removeLast() -> Value? {
+        //what if the ll is empty?
+        guard let head = head else { return nil }
+        //what if it only has one element, head == tail
+        guard head.next != nil else { return pop() }
+        defer {
+            var current: Node<Value>? = head
+            var previous: Node<Value>? = head
+            
+//            if (self.toArray().count == 2){
+//                print(self.toArray())
+//                now?.next = nil
+//                tail = now
+//                print(self.toArray())
+//            }
+            
+            //when nil, now is the tail
+            while let nextNode = current?.next {
+                previous = current
+                current = nextNode
+            }
+            previous?.next = nil
+            tail = previous
+        }
+        print("tail?.value -> before removing the tail \(String(describing: tail?.value))")
+        return tail?.value
+    }
+    
+    //    @discardableResult
+    //    public mutating func removeLast() -> Value? {
+    //        //what if the ll is empty?
+    //        guard head != nil else { return nil }
+    //        //what if it only have one element head == tail
+    //        guard head !== tail else { return pop() }
+    //
+    //        var nextNode = head?.next
+    //        print("\n-------- Before While\nnextNode?.value: \(String(describing: nextNode?.value))")
+    //        print("\n-------- Before While\nnextNode?.next: \(String(describing: nextNode?.next))")
+    //        print("\n-------- Before While\ntail?.value: \(String(describing: tail?.value))")
+    //        print("\n-------- Before While\ntail?.next: \(String(describing: tail?.next))")
+    //        while nextNode?.next !== tail {
+    //            nextNode = nextNode?.next
+    //            print("\n-------- While\nnextNode?.value: \(String(describing: nextNode?.value))")
+    //            fatalError()
+    //        }
+    //        defer {
+    //            print("\n-------- Before\ntail?.value: \(String(describing: tail?.value))")
+    //            print("\n-------- Before\nnextNode?.value: \(String(describing: nextNode?.value))")
+    //            print("\n-------- Before\nnextNode?.next: \(String(describing: nextNode?.next))")
+    //            nextNode?.next = nil
+    //            tail = nextNode
+    //            print("\n-------- After\nnextNode?.value: \(String(describing: nextNode?.value))")
+    //            print("\n-------- After\nnextNode?.next: \(String(describing: nextNode?.next))")
+    //            print("\n-------- After\ntail?.value: \(String(describing: tail?.value))")
+    //        }
+    //        return tail?.value
+    //    }
 }
 
 //MARK: CustomStringConvertible
@@ -144,3 +202,14 @@ extension LinkedList: ExpressibleByArrayLiteral {
         self.init(array: elements)
     }
 }
+
+//MARK: Comparable
+//extension Node: Comparable {
+//    public static func == (lhs: Node<Value>, rhs: Node<Value>) -> Bool {
+//        <#code#>
+//    }
+
+//    public static func < (lhs: Node<Value>, rhs: Node<Value>) where Value is Comparable -> Bool {
+//        lhs.value < rhs.value
+//    }
+//}
