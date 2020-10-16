@@ -59,19 +59,20 @@ final class UnitTests: XCTestCase {
         XCTAssertEqual(list.tail?.value, 2)
     }
     
-//    func testRemoveLast() {
-//        // Given
-//        var list: LinkedList<Int> = [1, 2, 3]
-//        list.description
-//
-//        // When
-//        let value = list.removeLast()
-//        list.description
-//
-//        // Then
-//        XCTAssertEqual(value, 3)
-//        XCTAssertEqual(list.toArray(), [1,2])
-//    }
+    func testRemoveLast() {
+        // Given
+        var list: LinkedList<Int> = [1, 2, 3, 4, 5, 6]
+        list.description
+
+        // When
+        let value = list.removeLast()
+        list.description
+
+        // Then
+        XCTAssertEqual(value, 6)
+        XCTAssertEqual(list.toArray(), [1, 2, 3, 4, 5])
+        XCTAssertEqual(list.tail?.value, 5)
+    }
     
 }
 

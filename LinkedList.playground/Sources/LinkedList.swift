@@ -110,27 +110,18 @@ public struct LinkedList<Value> {
         guard let head = head else { return nil }
         //what if it only has one element, head == tail
         guard head.next != nil else { return pop() }
-        defer {
-            var current: Node<Value>? = head
-            var previous: Node<Value>? = head
-            
-//            if (self.toArray().count == 2){
-//                print(self.toArray())
-//                now?.next = nil
-//                tail = now
-//                print(self.toArray())
-//            }
-            
-            //when nil, now is the tail
-            while let nextNode = current?.next {
-                previous = current
-                current = nextNode
-            }
-            previous?.next = nil
-            tail = previous
+        
+        var current: Node<Value>? = head
+        var previous: Node<Value>? = head
+        
+        //when nil, now is the tail
+        while let nextNode = current?.next {
+            previous = current
+            current = nextNode
         }
-        print("tail?.value -> before removing the tail \(String(describing: tail?.value))")
-        return tail?.value
+        previous?.next = nil
+        tail = previous
+        return current?.value
     }
     
     //    @discardableResult
