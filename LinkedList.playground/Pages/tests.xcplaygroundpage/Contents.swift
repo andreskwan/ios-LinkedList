@@ -14,17 +14,29 @@ final class UnitTests: XCTestCase {
         XCTAssertEqual(list.toArray(), [])
     }
     
-    func testToArray_whenOneElement() {
+    func testToArray_returnsAnEmptyArray_givenAnEmptyList() {
+        // Given
+        let list = LinkedList<Int>()
+        
+        // When
+        let array = list.toArray()
+        
+        // Then
+        XCTAssertEqual(array, [])
+    }
+    
+    func testToArray_returnsArrayWithOneElement_givenAListWithOneElement() {
         // Given
         var list = LinkedList<Int>()
         
         // When
         list.append(88)
+        
         // Then
         XCTAssertEqual(list.toArray(), [88])
     }
     
-    func testToArray_whenTwoElements() {
+    func testToArray_returnsArray_givenAList() {
         // Given
         var list = LinkedList<Int>()
         
@@ -119,8 +131,7 @@ final class UnitTests: XCTestCase {
         XCTAssertEqual(list.toArray(), [2, 3])
     }
 
-//    func testRemoveLast_gotNil_givenAnEmptyList(){
-    func testRemoveLast_gotNilForValueRemoved_EmptyList_givenAnEmptyList() {
+    func testRemoveLast_returnsNil_ListIsEmpty_givenAnEmptyList() {
         // Given
         var list = LinkedList<Int>()
 
@@ -132,7 +143,7 @@ final class UnitTests: XCTestCase {
         XCTAssertTrue(list.isEmpty)
     }
 
-    func testRemoveLast_gotValueRemoved_EmptyList_GivenAListWithOneElement() {
+    func testRemoveLast_returnsValueRemoved_ListIsEmpty_GivenAListWithOneElement() {
         // Given
         var list:LinkedList<Int> = [1]
 
@@ -144,7 +155,7 @@ final class UnitTests: XCTestCase {
         XCTAssertTrue(list.isEmpty)
     }
 
-    func testRemoveLast_gotValueRemoved_ListLengthOne_givenAListWithTwoElements() {
+    func testRemoveLast_returnsValueRemoved_ListWithOneElement_givenAListWithTwoElements() {
         // Given
         var list:LinkedList<Int> = [1,2]
         list.description
@@ -158,7 +169,7 @@ final class UnitTests: XCTestCase {
         XCTAssertEqual(list.toArray().count, 1)
     }
     
-    func testRemoveLast_gotValueRemoved_ListLengTwoAndNewTail_givenAListWithThreeElements() {
+    func testRemoveLast_returnsValueRemoved_ListWithTwoElementsAndNewTail_givenAListWithThreeElements() {
         // Given
         var list:LinkedList<Int> = [1,2,3]
         list.description
@@ -174,7 +185,7 @@ final class UnitTests: XCTestCase {
         XCTAssertEqual(list.tail?.value, 2)
     }
     
-    func testRemoveLast() {
+    func testRemoveLast_returnsValueRemoved_givenAList() {
         // Given
         var list: LinkedList<Int> = [1, 2, 3, 4, 5, 6]
         list.description
