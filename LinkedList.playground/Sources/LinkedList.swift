@@ -62,9 +62,11 @@ public struct LinkedList<Value: Equatable> {
         tail = tail!.next
     }
     
-    public func node<Value>(at index: Int) -> Node<Value>? {
-        guard head != nil else { return nil }
-        return nil
+    public func node(at index: Int) -> Node<Value>? {
+        guard !isEmpty else { return nil }
+        guard toArray().count > index else { return nil }
+        
+        return head
     }
     
     

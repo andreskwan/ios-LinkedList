@@ -109,6 +109,28 @@ final class UnitTests: XCTestCase {
         XCTAssertEqual(list.head, node)
     }
     
+    func testNodeAt_0_returnsHead_givenAListWithTwoElements() {
+        // Given
+        let list: LinkedList<Int> = [1,2]
+        
+        // When
+        let node:Node<Int>? = list.node(at: 0)
+        
+        // Then
+        XCTAssertEqual(list.head, node)
+    }
+    
+    func testNodeAt_1_returnsTail_givenAListWithTwoElements() {
+        // Given
+        let list: LinkedList<Int> = [1,2]
+        
+        // When
+        let node:Node<Int>? = list.node(at: 1)
+        
+        // Then
+        XCTAssertEqual(list.tail, node)
+    }
+    
     //    func testInsertAfter_gotListWithOneElement_givenAnEmptyList(){
     //        // Given
     //        var list: LinkedList<Int> = []
