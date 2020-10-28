@@ -1,6 +1,6 @@
 import Foundation
 
-public class Node<Value> {
+public class Node<Value: Equatable> {
     
     public var value: Value
     public var next: Node?
@@ -21,7 +21,13 @@ extension Node: CustomStringConvertible {
     }
 }
 
-public struct LinkedList<Value> {
+extension Node: Equatable {
+    public static func == (lhs: Node<Value>, rhs: Node<Value>) -> Bool {
+        return lhs.value == rhs.value && lhs.next == rhs.next
+    }
+}
+
+public struct LinkedList<Value: Equatable> {
     
     public init(array: [Value]) {
         array.forEach{ append($0) }
@@ -35,7 +41,6 @@ public struct LinkedList<Value> {
     public init(_ values: Value...) {
         _ = values.map{ push($0)}
     }
-    
     
     public var isEmpty: Bool {
         head == nil
@@ -57,35 +62,19 @@ public struct LinkedList<Value> {
         tail = tail!.next
     }
     
-    public func node(at index: Int) -> Node<Value>? {
-        // 1
-        var currentNode = head
-        var currentIndex = 0
-        
-        // 2
-        while currentNode != nil && currentIndex < index {
-            currentNode = currentNode!.next
-            currentIndex += 1
-        }
-        
-        return currentNode
+    public func node<Value>(at index: Int) -> Node<Value>? {
+        guard head != nil else { return nil }
+        return nil
     }
     
-    // 1
-    @discardableResult
-    public mutating func insert(_ value: Value,
-                                after node: Node<Value>)
-    -> Node<Value> {
-        // 2
-        guard tail !== node else {
-            append(value)
-            return tail!
-        }
-        // 3
-        node.next = Node(value: value, next: node.next)
-        return node.next!
-    }
     
+//    @discardableResult
+//    public mutating func insert(_ value: Value,
+//                                after node: Node<Value>) -> Node<Value> {
+//
+//       return nil
+//    }
+//
     /// Remove first element of the list
     @discardableResult
     public mutating func pop() -> Value? {
@@ -203,4 +192,25 @@ extension LinkedList: ExpressibleByArrayLiteral {
 //    public static func < (lhs: Node<Value>, rhs: Node<Value>) where Value is Comparable -> Bool {
 //        lhs.value < rhs.value
 //    }
+//}
+
+
+//guard tail !== node else {
+//    append(value)
+//    return tail!
+//}
+//
+//node.next = Node(value: value, next: node.next)
+//return node.next!
+
+
+//    var currentNode = head
+//    var currentIndex = 0
+//
+//    while currentNode != nil && currentIndex < index {
+//        currentNode = currentNode!.next
+//        currentIndex += 1
+//    }
+//
+//    return currentNode
 //}
